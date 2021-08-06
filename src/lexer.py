@@ -46,6 +46,7 @@ class LexerGenerator:
         self.add('FOR', 'for')
         self.add('GET', 'get')
         self.add('SET', 'set')
+        self.add('NEW', 'new')
         self.add('IF', 'if')
         self.add('IN', 'in')
         self.add('OP', 'op')

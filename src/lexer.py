@@ -1,5 +1,9 @@
 import re
+
 from rply import LexerGenerator as _BaseGen
+from rply.lexergenerator import Rule
+
+from typing import List
 
 
 class LexerGenerator:
@@ -9,6 +13,10 @@ class LexerGenerator:
 
     def __repr__(self) -> str:
         return f'<{self.__class__.__name__}>'
+
+    @property
+    def rules(self) -> List[Rule]:
+        return self._lg.rules
 
     def add(self, name: str, pattern: str, *, flags: int = 0) -> None:
         self._lg.add(name, pattern, flags)

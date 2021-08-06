@@ -1,18 +1,26 @@
-from rply import ParserGenerator, Token
+from .ast import *
+from .lexer import LexerGenerator
 from .state import State
+
+from rply import ParserGenerator, Token
 
 from typing import List
 
-from .lexer import LexerGenerator
+ProdT = List[Token]
 
-T = List[Token]
 
-parser = ParserGenerator([l.name for l in LexerGenerator()._lg.rules])
+lg: LexerGenerator = LexerGenerator()
+pg: ParserGenerator = ParserGenerator(
+    [rule.name for rule in lg.rules],
+    precedence=[
+        ('right', ['UMINUS']),
+        ('left', ['ADD', 'SUB']),
+        ('left', ['MUL', 'DIV', 'MOD']),
+        ('right', ['POW'])
+    ]
+)
 
-@parser.production('program : statements')
-def program(state: State, p: T) -> T:
-    return p[0]
 
-@parser.production('statements : statement statements')
-def statements(state: State, p: T) -> T:
-    return p[0] + p[1]
+@pg.production('expr : INTEGER')
+def program(_: State, p: ProdT) -> ProdT:
+    return Integer(int(p[0]))

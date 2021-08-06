@@ -1,11 +1,11 @@
 from rply import ParserGenerator, Token
 from .state import State
 
-from typing import TypeVar, List
+from typing import List
 
 from .lexer import LexerGenerator
 
-T = TypeVar('T', bound=List[Token])
+T = List[Token]
 
 parser = ParserGenerator([l.name for l in LexerGenerator()._lg.rules])
 

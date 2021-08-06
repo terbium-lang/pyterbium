@@ -97,3 +97,4 @@ class LexerGenerator:
         self.add('POW', r'\*\*')
         self.add('MUL', r'\*')
         self.add('DIV', '/')
+        self.add('MOD', '%')
